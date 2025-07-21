@@ -35,7 +35,7 @@ function App() {
         const randomIndex = Math.floor(Math.random() * 16);
         newGrid[randomIndex] = true;
         setGrid(newGrid);
-
+        // increase game speed while time is ends
         if (timeLeft < 10 && gameSpeed > 500) {
           setGameSpeed(500);
         } else if (timeLeft < 20 && gameSpeed > 750) {
@@ -63,7 +63,15 @@ function App() {
     }
   };
 
-  const whackMole = (index: number) => {
+  const resetGame = () => {
+    setScore(0);
+    setTimeLeft(30);
+    setGameSpeed(1000);
+    setGameActive(false);
+    setHighScore(0);
+  };
+
+  const handleMoleWhack = (index: number) => {
     if (gameActive && grid[index]) {
 
       const newGrid = [...grid];
@@ -92,7 +100,7 @@ function App() {
           <div 
             key={index} 
             className={hasMole ? 'moleCell' : 'emptyCell'}
-            onClick={() => whackMole(index)}
+            onClick={() => handleMoleWhack(index)}
           >
             {hasMole && <div className='mole'>🐹</div>}
           </div>
@@ -101,6 +109,11 @@ function App() {
       {!gameActive && (
         <button className='startButton' onClick={startGame}>
           {score === 0 ? 'Start Game' : 'Play Again'}
+        </button>
+      )}
+      {!gameActive && timeLeft < 30 && (
+        <button className='resetButton' onClick={resetGame}>
+          Reset Game
         </button>
       )}
       {gameActive && (
