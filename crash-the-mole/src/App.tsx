@@ -76,7 +76,6 @@ function App() {
   return (
     <div className='container'>
       <h1>Crash the Mole!</h1>
-      
       <div className='infoContainer'>
         <div className='infoBox'>
           <h3>Time Left: {timeLeft}s</h3>
@@ -88,7 +87,6 @@ function App() {
           <h3>High Score: {highScore}</h3>
         </div>
       </div>
-      
       <div className='grid'>
         {grid.map((hasMole, index) => (
           <div 
@@ -100,13 +98,11 @@ function App() {
           </div>
         ))}
       </div>
-      
       {!gameActive && (
         <button className='startButton' onClick={startGame}>
           {score === 0 ? 'Start Game' : 'Play Again'}
         </button>
       )}
-      
       {gameActive && (
         <button className='endButton' onClick={endGame}>
           End Game
