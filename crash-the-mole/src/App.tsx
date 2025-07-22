@@ -2,6 +2,17 @@ import { useEffect, useState } from 'react';
 import useSound from 'use-sound';
 import './App.css';
 import punch from './assets/audio/punch.wav';
+import {
+  Cell,
+  EndButton,
+  GameContainer,
+  GameInfoBox,
+  GameInfoContainer,
+  Grid,
+  Mole,
+  ResetButton,
+  StartButton
+} from './components/shared/styles';
 
 function App() {
   const [grid, setGrid] = useState<boolean[]>(Array(16).fill(false));
@@ -87,46 +98,46 @@ function App() {
   };
 
   return (
-    <div className='container'>
+    <GameContainer>
       <h1>Crash the Mole!</h1>
-      <div className='infoContainer'>
-        <div className='infoBox'>
+      <GameInfoContainer>
+        <GameInfoBox>
           <h3>Time Left: {timeLeft}s</h3>
-        </div>
-        <div className='infoBox'>
+        </GameInfoBox>
+        <GameInfoBox>
           <h3>Score: {score}</h3>
-        </div>
-        <div className='infoBox'>
+        </GameInfoBox>
+        <GameInfoBox>
           <h3>High Score: {highScore}</h3>
-        </div>
-      </div>
-      <div className='grid'>
+        </GameInfoBox>
+      </GameInfoContainer>
+      <Grid>
         {grid.map((hasMole, index) => (
-          <div 
+          <Cell
+            $hasMole={hasMole}
             key={index} 
-            className={hasMole ? 'moleCell' : 'emptyCell'}
             onClick={() => handleMoleWhack(index)}
           >
-            {hasMole && <div className='mole'>🐹</div>}
-          </div>
+            {hasMole && <Mole className='mole'>🐹</Mole>}
+          </Cell>
         ))}
-      </div>
+      </Grid>
       {!gameActive && (
-        <button className='startButton' onClick={startGame}>
+        <StartButton className='startButton' onClick={startGame}>
           {score === 0 ? 'Start Game' : 'Play Again'}
-        </button>
+        </StartButton>
       )}
       {!gameActive && timeLeft < 30 && (
-        <button className='resetButton' onClick={resetGame}>
+        <ResetButton className='resetButton' onClick={resetGame}>
           Reset Game
-        </button>
+        </ResetButton>
       )}
       {gameActive && (
-        <button className='endButton' onClick={endGame}>
+        <EndButton className='endButton' onClick={endGame}>
           End Game
-        </button>
+        </EndButton>
       )}
-    </div>
+    </GameContainer>
   );
 }
 
