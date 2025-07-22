@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import "./App.css";
+import useSound from 'use-sound';
+import './App.css';
+import punch from './assets/audio/punch.wav';
 
 function App() {
   const [grid, setGrid] = useState<boolean[]>(Array(16).fill(false));
@@ -8,6 +10,8 @@ function App() {
   const [gameActive, setGameActive] = useState<boolean>(false);
   const [timeLeft, setTimeLeft] = useState<number>(30);
   const [gameSpeed, setGameSpeed] = useState<number>(1000);
+
+  const [playPunch] = useSound(punch);
 
   useEffect(() => {
     const savedHighScore = localStorage.getItem('moleHighScore');
@@ -76,6 +80,7 @@ function App() {
 
       const newGrid = [...grid];
       newGrid[index] = false;
+      playPunch();
       setGrid(newGrid);
       setScore(score + 1);
     }
