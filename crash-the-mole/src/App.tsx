@@ -84,6 +84,7 @@ function App() {
     setGameSpeed(1000);
     setGameActive(false);
     setHighScore(0);
+    localStorage.setItem('moleHighScore', '0');
   };
 
   const handleMoleWhack = (index: number) => {
